@@ -30,11 +30,17 @@ class Polygon
     int numSides;
 
     public:
-    POINTS getPoints();
-    void setPoints(POINTS points);
 
+    // construtor e destrutor
+    Polygon();
+    ~Polygon();
+
+    POINTS getPoints();
+    void setPoints(POINTS points); 
+    
     SIDES getSides();
-    void setSides(SIDES sides);
+    void setSides(SIDES sides); 
+    void addSide(SIDE side);
 
     SIDE getSide(int index);
     void setSide(SIDE side);
