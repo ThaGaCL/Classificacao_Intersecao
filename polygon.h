@@ -32,11 +32,11 @@ class Polygon
     public:
 
     // construtor e destrutor
-    Polygon();
-    ~Polygon();
+    Polygon(){};
+    ~Polygon(){};
 
     POINTS getPoints();
-    void setPoints(POINTS points); 
+    void addPoint(Point points); 
     
     SIDES getSides();
     void setSides(SIDES sides); 
@@ -52,10 +52,13 @@ class Polygon
     void setSimpleOrComplex(POLYGON_TYPE type);
 
     int getNumPoints();
-    void setNumPoints();
+    void setNumPoints(int index);
 
     int getNumSides();
     void setNumSides(int numSides);
+
+    bool isPoligonConvex();
+    bool isPoligonSimple();
 };
 
 

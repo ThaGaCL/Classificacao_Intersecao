@@ -11,14 +11,15 @@ class IO {
     public:
 
     // construtor e destrutor
-    IO(int argc, char *argv[]);
-    ~IO();
+    IO(){};
+    ~IO(){};
 
     // métodos
 
     // lê os polígonos e os pontos do arquivo de entrada
     void read(POLYGON_LIST &polygons, POINTS &points);
-    
+    void print(POLYGON_LIST &polygons, POINTS &points);
+    void printOut(POLYGON_LIST &polygons, POINTS &points);  
 };
 
 #endif
