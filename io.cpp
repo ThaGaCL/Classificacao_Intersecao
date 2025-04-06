@@ -1,5 +1,19 @@
 #include "io.h"
 
+void classifyPolygon(Polygon &polygon){
+    if(polygon.isPolygonSimple()){
+        polygon.setSimpleOrComplex(SIMPLE);
+
+        if (polygon.isPolygonConvex()){
+            polygon.setConvexOrConcave(CONVEX);
+        } else {
+            polygon.setConvexOrConcave(CONCAVE);
+        }
+    } else {
+        polygon.setSimpleOrComplex(COMPLEX);
+        polygon.setConvexOrConcave(CONCAVE);
+    }
+}
 
 void IO::read(POLYGON_LIST &polygons, POINTS &points){
     int m,n; // m poligonos, n pontos
@@ -8,19 +22,13 @@ void IO::read(POLYGON_LIST &polygons, POINTS &points){
 
     for(int i=0; i < m; i++){
         int numPoints;
-
-        // printf("\nLendo polígono %d...\n", i+1);
-        
         std::cin >> numPoints;
         
         if(numPoints < 3){
-            // printf("Número de pontos inválido! O polígono deve ter pelo menos 3 pontos.\n");
             return;
         }
 
         polygons.push_back(Polygon());
-        
-        // printf("Número de pontos do polígono %d: %d\n", i+1, numPoints);
         
         polygons[i].setNumSides(numPoints);
         polygons[i].setNumPoints(numPoints);
@@ -29,22 +37,18 @@ void IO::read(POLYGON_LIST &polygons, POINTS &points){
             Point p;
             std::cin >> p.x >> p.y;
             polygons[i].addPoint(p);
-            // printf("Ponto %d do polígono %d lido com sucesso!\n", j+1, i+1);
         }
 
-        // printf("Polígono %d lido com sucesso!\n", i+1);
+        classifyPolygon(polygons[i]);
     }
-
-    // printf("Polígonos lidos com sucesso!\n");
 
     for(int i=0; i < n; i++){
         Point p;
         std::cin >> p.x >> p.y;
-        p.polygonIndex.clear(); // Limpa o vetor de índices do ponto
+        p.polygonIndex.clear(); 
         points.push_back(p);
     }
 
-    // printf("Pontos lidos com sucesso!\n");
     
 }
 
@@ -68,8 +72,23 @@ void IO::printOut(POLYGON_LIST &polygons, POINTS &points){
     printf("Polígonos:\n");
     for(int i=0; i < polygons.size(); i++){
         printf("Polígono %d:", i+1);
-        printf(" %d", polygons[i].getSimpleOrComplex());
-        printf(" %d", polygons[i].getConvexOrConcave());
+        switch (polygons[i].getSimpleOrComplex()) {
+            case SIMPLE:
+                printf(" SIMPLES");
+                break;
+            case COMPLEX:
+                printf(" COMPLEXO");
+                break;
+        }
+
+        switch (polygons[i].getConvexOrConcave()) {
+            case CONVEX:
+                printf(" CONVEXO");
+                break;
+            case CONCAVE:
+                printf(" CONCAVO");
+                break;
+        }
         printf("\n");
     }
 

@@ -57,8 +57,8 @@ class Polygon
     int getNumSides();
     void setNumSides(int numSides);
 
-    bool isPoligonConvex();
-    bool isPoligonSimple();
+    bool isPolygonConvex();
+    bool isPolygonSimple();
 };
 
 
