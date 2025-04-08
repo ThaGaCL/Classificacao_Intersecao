@@ -101,3 +101,19 @@ void IO::printOut(POLYGON_LIST &polygons, POINTS &points){
         printf("\n");
     }
 }
+
+void IO::classifyPoints(POLYGON_LIST &polygons, POINTS &points){
+    SweepLine sweep;
+    bool inside;
+    for (int i = 0; i < polygons.size(); i++){
+        polygons[i].preProcess();
+        for (int j = 0; j < points.size(); j++){
+            printf("poligono %d, ponto %d: ", i+1, j+1);
+            inside = sweep.isInsidePolygon(polygons[i].getSides(), points[j]);
+            std::cout << "inside: " << inside << std::endl;
+            if (inside){
+                points[j].polygonIndex.push_back(i+1);
+            }
+        }
+    }
+}

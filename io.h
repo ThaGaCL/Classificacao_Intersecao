@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 #include "polygon.h"
+#include "sweep.h"
 
 using POLYGON_LIST = std::vector<Polygon>;
+
 
 class IO {
     public:
@@ -20,6 +22,7 @@ class IO {
     void read(POLYGON_LIST &polygons, POINTS &points);
     void print(POLYGON_LIST &polygons, POINTS &points);
     void printOut(POLYGON_LIST &polygons, POINTS &points);  
+    void classifyPoints(POLYGON_LIST &polygons, POINTS &points);
 };
 
 #endif

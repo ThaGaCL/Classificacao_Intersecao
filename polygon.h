@@ -8,6 +8,11 @@
 
 using SIDE = std::pair<Point, Point>;
 using SIDES = std::vector<SIDE>;
+/*
+    convenção: side[0] : aberto, side[1] : fechado
+*/
+
+
 using POINTS = std::vector<Point>;
 
 typedef enum POLYGON_TYPE
@@ -35,12 +40,18 @@ class Polygon
     Polygon(){};
     ~Polygon(){};
 
+
     POINTS getPoints();
     void addPoint(Point points); 
     
     SIDES getSides();
-    void setSides(SIDES sides); 
+    void setSides(); 
     void addSide(SIDE side);
+
+    void virtual preProcess(){
+        setSides();
+        numSides = numPoints;
+    };
 
     SIDE getSide(int index);
     void setSide(SIDE side);
@@ -59,6 +70,7 @@ class Polygon
 
     bool isPolygonConvex();
     bool isPolygonSimple();
+
 };
 
 

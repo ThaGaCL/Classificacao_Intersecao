@@ -15,8 +15,13 @@ SIDES Polygon::getSides() {
     return sides;
 }
 
-void Polygon::setSides(SIDES sides) {
-    this->sides = sides;
+void Polygon::setSides() {
+    for (int i = 0; i < numPoints; i++) {
+        SIDE side;
+        side.first = points[i];
+        side.second = points[(i + 1) % numPoints];
+        addSide(side);
+    }
 }
 
 void Polygon::addSide(SIDE side) {

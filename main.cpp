@@ -16,6 +16,7 @@ int main()
     io.read(polygons, points);
 
     io.print(polygons, points);
+    io.classifyPoints(polygons, points);
     
     // Classifica os polígonos
 
