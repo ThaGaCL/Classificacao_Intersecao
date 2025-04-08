@@ -18,17 +18,19 @@ using EVENTS = std::vector<Event>;
 class SweepLine {
 
 public:
-    SweepLine() {}
+    SweepLine(POINTS &points): points(points) {}
     ~SweepLine() {}
 
     bool inside = false;
     int sweep = 0;
-    Point point;
+	int polygonId;
+    //Point point;
+	POINTS &points;
     SIDES activeEvents; 
     std::vector<int> activeSegments;
     EVENTS events;
 
-    bool virtual isInsidePolygon(SIDES sides, Point point){
+    void virtual isInsidePolygon(SIDES sides, int polygonId){
         inside = false;
         activeEvents = sides;
 
@@ -45,13 +47,11 @@ public:
             events.push_back(event);
         }
 
-        this->point = point;
+		this->polygonId = polygonId;
 
         orderSides();
         processEvents();
         clearArrays();
-
-        return getIsInside();
     }
 
     // Métodos

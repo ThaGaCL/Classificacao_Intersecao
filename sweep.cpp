@@ -32,33 +32,42 @@ void SweepLine::clearArrays(){
     activeSegments.clear();
 }
 
-void SweepLine::processEvents() {
-    for (int i = 0; i < events.size(); i++){
-        if (events[i].isStart){
-            addEvent(events[i].index);
-        }
-        else {
-            removeEvent(events[i].index);
-        }
+bool intersection (Point point, SIDE side) {
+    Point p1 = side.first;
+    Point p2 = side.second;
 
-        int cross = 0;
-        for (const auto &index : activeSegments) {
-            const auto &side = activeEvents[index];
-            printf("side: (%d, %d) (%d, %d)\n", side.first.x, side.first.y, side.second.x, side.second.y);
-            printf("point: (%d, %d)\n", point.x, point.y);
-            if (point.x >= side.first.x && point.x <= side.second.x && point.y >= std::min(side.first.y, side.second.y) && point.y <= std::max(side.first.y, side.second.y)){
-                cross++;
-            }
-        }
-
-        printf("cross: %d\n", cross);
-
-        if (cross % 2 != 0) {
-            setIsInside(true);
-            break;
-        }
+    if ((p1.y > point.y) == (p2.y > point.y)) {
+        return false; 
     }
 
+    float xIntersection = p1.x + (point.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y);
+
+    return xIntersection > point.x;
+}
+
+void SweepLine::processEvents() {
+	for (int i = 0; i < events.size(); i++) {
+		if (events[i].isStart) {
+			addEvent(events[i].index);
+		} else {
+			removeEvent(events[i].index);
+		}
+
+		for (auto &point : points) {
+			int cross = 0; 
+			for (const auto &index : activeSegments) {
+				const auto &side = activeEvents[index];
+
+				if (intersection(point, side)) {
+					cross++;
+				}
+			}
+
+			if (cross % 2 != 0) {
+				point.polygonIndex.push_back(polygonId+1);
+			}
+		}
+	}
 }
 
 
