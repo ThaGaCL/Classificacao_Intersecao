@@ -69,32 +69,31 @@ void IO::print(POLYGON_LIST &polygons, POINTS &points){
 }
 
 void IO::printOut(POLYGON_LIST &polygons, POINTS &points){
-    printf("Polígonos:\n");
+
     for(int i=0; i < polygons.size(); i++){
-        printf("Polígono %d:", i+1);
+        printf("%d", i+1);
         switch (polygons[i].getSimpleOrComplex()) {
             case SIMPLE:
-                printf(" SIMPLES");
+                printf(" simples");
                 break;
             case COMPLEX:
-                printf(" COMPLEXO");
+                printf(" nao simples");
                 break;
         }
 
         switch (polygons[i].getConvexOrConcave()) {
             case CONVEX:
-                printf(" CONVEXO");
+                printf(" e convexo");
                 break;
             case CONCAVE:
-                printf(" CONCAVO");
+                printf(" e nao convexo");
                 break;
         }
         printf("\n");
     }
 
-    printf("Poligonos que contem os pontos:\n");
     for(int i=0; i < points.size(); i++){
-        printf("Ponto %d: ", i+1);
+        printf("%d: ", i+1);
         for(int j=0; j < points[i].polygonIndex.size(); j++){
             printf("%d ", points[i].polygonIndex[j]);
         }
