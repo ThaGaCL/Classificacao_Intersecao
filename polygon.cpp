@@ -72,6 +72,11 @@ int orientation(Point p1, Point p2, Point p3){
     return (p2.y - p1.y) * (p3.x - p2.x) - (p2.x - p1.x) * (p3.y - p2.y);
 }
 
+bool onSegment(Point p1, Point p2, Point p3) {
+    return (p2.x <= max(p1.x, p3.x) && p2.x >= min(p1.x, p3.x) &&
+            p2.y < max(p1.y, p3.y) && p2.y > min(p1.y, p3.y));
+}
+
 bool lineIntersection(Point p1, Point p2, Point p3, Point p4) {
     int o1 = orientation(p1, p2, p3);
     int o2 = orientation(p1, p2, p4);
@@ -81,6 +86,11 @@ bool lineIntersection(Point p1, Point p2, Point p3, Point p4) {
     if (o1 * o2 < 0 && o3 * o4 < 0) {
         return true; 
     }
+
+    if (o1 == 0 && onSegment(p1, p3, p2)) return true;
+    if (o2 == 0 && onSegment(p1, p4, p2)) return true;
+    if (o3 == 0 && onSegment(p3, p1, p4)) return true;
+    if (o4 == 0 && onSegment(p3, p2, p4)) return true;
 
     return false;
 }

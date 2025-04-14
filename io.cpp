@@ -49,7 +49,6 @@ void IO::read(POLYGON_LIST &polygons, POINTS &points){
         points.push_back(p);
     }
 
-    
 }
 
 void IO::print(POLYGON_LIST &polygons, POINTS &points){
@@ -102,10 +101,12 @@ void IO::printOut(POLYGON_LIST &polygons, POINTS &points){
 }
 
 void IO::classifyPoints(POLYGON_LIST &polygons, POINTS &points){
-    SweepLine sweep(points);
+    rayCasting rayCasting(points);
 
     for (int i = 0; i < polygons.size(); i++){
+        if (polygons[i].getSimpleOrComplex() == COMPLEX) continue;
+
         polygons[i].preProcess();
-		sweep.isInsidePolygon(polygons[i].getSides(), i);
+		rayCasting.isInsidePolygon(polygons[i].getSides(), i);
 	}
 }

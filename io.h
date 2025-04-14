@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "polygon.h"
-#include "sweep.h"
+#include "rayCasting.h"
 
 using POLYGON_LIST = std::vector<Polygon>;
 
